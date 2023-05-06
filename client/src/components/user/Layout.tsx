@@ -1,7 +1,7 @@
 import React ,{ReactNode} from 'react'
 import LogoHeader from './LogoHeader'
 import { Box } from '@mui/material'
-import Navbar from './Navbar'
+import Navbar from './Navbar/Navbar'
 
 type props = {
     children:ReactNode
