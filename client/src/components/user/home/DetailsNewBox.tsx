@@ -35,7 +35,7 @@ export default function DetailsNewBox({views}:props) {
                     {views&&
                     <ViewBox sx={{color:"black"}}>
                         <VisibilityIcon sx={{fontSize:"18px",fontWeight:"500"}}/>
-                        <Typography>3000 مشاهدة</Typography>
+                        <Typography sx={{fontSize:"14px" , fontWeight:"500"}}>3000 مشاهدة</Typography>
                     </ViewBox>}
                 </Grid>
             </Grid>

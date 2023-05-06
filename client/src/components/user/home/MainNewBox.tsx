@@ -18,7 +18,7 @@ const CategoryText = styled(Typography)({
 export default function MainNewBox({big}:props) {
     const Wrapper = styled(Box)({
         width:"100%",
-        height:!big?"164px":"100%",
+        height:!big?"164px":"352px",
         backgroundPosition:"center",
         backgroundSize:"cover",
         backgroundRepeat:'no-repeat',
@@ -34,7 +34,7 @@ export default function MainNewBox({big}:props) {
                 <Box sx={{padding:"8px"}}>
                     <CategoryText>العالم</CategoryText>
                 </Box>
-                <Typography sx={{position:"absolute",bottom:0,paddingY:"4px",textAlign:"center",left:0,width:"100%",backgroundColor:"#000000ab"}}>
+                <Typography sx={{position:"absolute",bottom:0,paddingY:"4px",textAlign:"center",left:0,width:"100%",backgroundColor:"#000000ab",color:"white"}}>
                     {big?text.slice(0,80):text.slice(0,30)}
                 </Typography>
             </Wrapper>
