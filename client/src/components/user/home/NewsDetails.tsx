@@ -1,6 +1,8 @@
 import React from 'react'
 import {Box,Container,Tab} from '@mui/material'
 import { TabContext, TabList, TabPanel } from '@mui/lab'
+import LastNews from './LastNews';
+import MostReadNews from './MostReadNews';
 
 export default function NewsDetails() {
 
@@ -20,8 +22,8 @@ export default function NewsDetails() {
                             <Tab label="الأكثر قراءة" value="2" sx={{fontSize:"20px"}}/>
                         </TabList>
                     </Box>
-                    <TabPanel value="1">آخر الأخبار</TabPanel>
-                    <TabPanel value="2">الأكثر قراءة</TabPanel>
+                    <TabPanel value="1"><LastNews/></TabPanel>
+                    <TabPanel value="2"><MostReadNews/></TabPanel>
                 </TabContext>
             </Container>
         </Box>
