@@ -8,7 +8,13 @@
 
 /** view new and get single new */
 
-/** get opinions limit 6 */
+/** get opinions limit 8 */
+
+/** get last opinoins */
+
+/** get cateogry with 8 opinion for every one */
+
+/** get all opinions by cateogyr */
 
 /** get single opinion */
 

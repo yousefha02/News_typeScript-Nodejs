@@ -11,3 +11,13 @@ a{
   text-decoration: none;
   color:inherit;
 }
+
+.header-title::before{
+  content:"";
+  position: absolute;
+  top:0;
+  right:0;
+  width:6px;
+  height:100%;
+  background-color:#b80000;
+}

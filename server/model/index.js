@@ -9,6 +9,9 @@ const SocialMedia = require('./SocialMedia')
 Author.hasMany(Opinion)
 Opinion.belongsTo(Author)
 
+Category.hasMany(Opinion)
+Opinion.belongsTo(Category)
+
 Category.hasMany(New)
 New.belongsTo(Category)
 
