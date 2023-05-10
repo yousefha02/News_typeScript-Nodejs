@@ -13,7 +13,7 @@ export default function NewsDetails() {
     };
 
     return (
-        <Box sx={{backgroundColor:"#f7f7f9",paddingY:"20px",marginY:"80px"}}>
+        <Box sx={{backgroundColor:"#f7f7f9",paddingY:"20px",marginTop:"60px",marginBottom:"50px"}}>
             <Container>
                 <TabContext value={value}>
                     <Box sx={{ borderBottom: 1, borderColor: 'divider'}}>
