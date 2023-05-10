@@ -11,7 +11,7 @@ export default function Editor({updatedText , setEditorText}:EditorProps) {
 
   const config = useMemo(() => ({
     readonly: false,
-    addNewLineOnDBLClick: false
+    addNewLineOnDBLClick: true
   }), []);
 
   const handleSetContext = useCallback((value:any) => {
@@ -24,8 +24,8 @@ export default function Editor({updatedText , setEditorText}:EditorProps) {
   useEffect(()=>{
     console.log(updatedText);
     if(updatedText){
-        setContent(`<p>${updatedText}</p>`);
-        setEditorText(`<p>${updatedText}</p>`);
+        setContent(updatedText);
+        setEditorText(updatedText);
     }
   },[updatedText, setEditorText]);
 
