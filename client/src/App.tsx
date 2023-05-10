@@ -6,6 +6,7 @@ import Home from './pages/user/Home';
 import Opinions from './pages/user/Opinions';
 import OpinionsCategory from './pages/user/OpinionsCategory';
 import SingleAuthor from './pages/user/SingleAuthor';
+import Videos from './pages/user/Videos';
 
 const themes = createTheme({
     palette:{
@@ -28,6 +29,7 @@ function App() {
         <Route path='opinions' element={<Opinions/>}/>
         <Route path='opinions/:categId' element={<OpinionsCategory/>}/>
         <Route path='authors/:authorId' element={<SingleAuthor/>}/>
+        <Route path='videos' element={<Videos/>}/>
       </Routes>
     </ThemeProvider>
   );
