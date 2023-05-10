@@ -6,6 +6,9 @@ import Home from './pages/user/Home';
 import AdminLand from './pages/admin/AdminLand';
 import AdminCategories from './pages/admin/AdminCategories';
 import AdminNews from './pages/admin/AdminNews';
+import Opinions from './pages/user/Opinions';
+import OpinionsCategory from './pages/user/OpinionsCategory';
+import SingleAuthor from './pages/user/SingleAuthor';
 
 const themes = createTheme({
   direction:"rtl",
@@ -34,6 +37,9 @@ function App() {
         <Route path='/admin' element={<AdminLand/>}/>
         <Route path='/admin/categories' element={<AdminCategories/>}/>
         <Route path='/admin/news' element={<AdminNews/>}/>
+        <Route path='opinions' element={<Opinions/>}/>
+        <Route path='opinions/:categId' element={<OpinionsCategory/>}/>
+        <Route path='authors/:authorId' element={<SingleAuthor/>}/>
       </Routes>
     </ThemeProvider>
   );
