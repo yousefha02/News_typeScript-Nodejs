@@ -14,6 +14,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AdminEditNew from './pages/admin/AdminEditNew';
 import AdminAuthors from './pages/admin/AdminAuthors';
+import AdminEditAuthor from './pages/admin/AdminEditAuthor';
 
 
 const themes = createTheme({
@@ -45,6 +46,7 @@ function App() {
         <Route path='/admin/news' element={<AdminNews/>}/>
         <Route path='/admin/news/edit/:newId' element={<AdminEditNew/>}/>
         <Route path='/admin/authors' element={<AdminAuthors/>}/>
+        <Route path='/admin/authors/edit/:authorId' element={<AdminEditAuthor/>}/>
         {/* end admin pages */}
         <Route path='opinions' element={<Opinions/>}/>
         <Route path='opinions/:categId' element={<OpinionsCategory/>}/>

@@ -21,3 +21,7 @@ a{
   height:100%;
   background-color:#b80000;
 }
+
+.header-title.black::before{
+  background-color:#000000;
+}
