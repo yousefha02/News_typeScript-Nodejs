@@ -16,6 +16,7 @@ import AdminEditNew from './pages/admin/AdminEditNew';
 import AdminAuthors from './pages/admin/AdminAuthors';
 import NewsByCategory from './pages/user/NewsByCategory';
 import AdminEditAuthor from './pages/admin/AdminEditAuthor';
+import SingleVideo from './pages/user/SingleVideo';
 
 const themes = createTheme({
   direction:"rtl",
@@ -54,6 +55,7 @@ function App() {
         <Route path='authors/:authorId' element={<SingleAuthor/>}/>
         <Route path='videos' element={<Videos/>}/>
         <Route path='/:category/news' element={<NewsByCategory/>}/>
+        <Route path='/videos/:videoId' element={<SingleVideo/>}/>
       </Routes>
       <ToastContainer />
     </ThemeProvider>
