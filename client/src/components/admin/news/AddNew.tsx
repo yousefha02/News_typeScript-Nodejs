@@ -7,6 +7,8 @@ import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import Editor from '../Editor';
 import { useCallback, useMemo, useState } from 'react';
 import {useDropzone} from 'react-dropzone';
+import { ToastContainer, toast } from 'react-toastify';
+
 
 
 const Image = styled("img")({
@@ -63,6 +65,7 @@ function AddNew() {
       const onSubmit: SubmitHandler<IFormInput> = data => {
         console.log(data)
         console.log(editorText);
+        toast(" الرجاء تحميل الصورة ",{position:"bottom-right", type:"error"})
       };
 
       const [file , setFile] = useState<File | null>(null);

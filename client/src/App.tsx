@@ -10,6 +10,9 @@ import Opinions from './pages/user/Opinions';
 import OpinionsCategory from './pages/user/OpinionsCategory';
 import SingleAuthor from './pages/user/SingleAuthor';
 import Videos from './pages/user/Videos';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const themes = createTheme({
   direction:"rtl",
@@ -43,6 +46,7 @@ function App() {
         <Route path='authors/:authorId' element={<SingleAuthor/>}/>
         <Route path='videos' element={<Videos/>}/>
       </Routes>
+      <ToastContainer />
     </ThemeProvider>
   );
 }
