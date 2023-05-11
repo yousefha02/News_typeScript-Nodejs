@@ -51,21 +51,29 @@ interface IFormInput {
     borderColor: '#ff1744'
   };
 
-function AddNew() {
+
+  type AddNewProps = {
+    title?:string,
+    description?:string,
+    categoryId?: string,
+    isUpdate?: boolean
+  }
+
+function AddNew({title , description , categoryId , isUpdate}:AddNewProps) {
     // const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const { control, handleSubmit  , formState: { errors },register} = useForm({
         defaultValues: {
-            title: '',
-            category:""
+            title: title || "",
+            category: categoryId || ""
         }
       });
 
-      const [editorText , setEditorText]=useState('');
+      const [editorText , setEditorText]=useState("");
     
       const onSubmit: SubmitHandler<IFormInput> = data => {
         console.log(data)
         console.log(editorText);
-        toast(" الرجاء تحميل الصورة ",{position:"bottom-right", type:"error"})
+        toast(" الرجاء تحميل الصورة ",{position:"bottom-right", type:"error" , autoClose:1500})
       };
 
       const [file , setFile] = useState<File | null>(null);
@@ -127,7 +135,7 @@ function AddNew() {
             {errors.category && <Typography variant='h6' color="error" sx={{fontSize:"12px", marginTop:"12px"}}>هذا الحقل مطلوب</Typography>}
         </Box>
         <Box sx={{marginBottom:"20px"}}>
-            <Editor updatedText={""} setEditorText={setEditorText}/>        
+            <Editor updatedText={description?description:""} setEditorText={setEditorText}/>        
         </Box>
         <Box>
           <div {...getRootProps({style})}>
@@ -138,7 +146,13 @@ function AddNew() {
             file && <Image src={URL.createObjectURL(file)}/>
           }
         </Box>
-        <Button variant='contained' sx={{marginTop:"20px" , width:"100px" , display:"block"}} type="submit" color='secondary'>حفظ</Button>
+        {
+          isUpdate
+          ?
+          <Button variant='contained' sx={{marginTop:"20px" , width:"140px" , display:"block"}} type="submit" color='secondary'>حفظ التعديل</Button>
+          :
+          <Button variant='contained' sx={{marginTop:"20px" , width:"100px" , display:"block"}} type="submit" color='secondary'>حفظ</Button>
+        }
     </form>
   )
 }
