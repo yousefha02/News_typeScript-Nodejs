@@ -6,6 +6,8 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import AddNew from '../../components/admin/news/AddNew';
 import AdminViewNews from '../../components/admin/news/ViewNews';
+import AddAuthor from '../../components/admin/authors/AddAuthor';
+import AdminViewAuthors from '../../components/admin/authors/ViewAuthors';
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -57,10 +59,10 @@ function AdminAuthors() {
                 </Tabs>
             </Box>
             <TabPanel value={value} index={0}>
-                <AddNew/>
+                <AddAuthor/>
             </TabPanel>
             <TabPanel value={value} index={1}>
-              <AdminViewNews/>
+              <AdminViewAuthors/>
             </TabPanel>
         </Box>
     </AdminLayout>
