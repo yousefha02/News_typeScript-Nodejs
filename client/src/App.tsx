@@ -34,7 +34,7 @@ const themes = createTheme({
 function App() {
   useEffect(()=>{
     document.body.dir="rtl"
-  },[]);
+  },[]); 
 
   return (
     <ThemeProvider theme={themes}>
