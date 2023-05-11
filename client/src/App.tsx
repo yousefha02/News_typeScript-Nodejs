@@ -10,6 +10,11 @@ import Opinions from './pages/user/Opinions';
 import OpinionsCategory from './pages/user/OpinionsCategory';
 import SingleAuthor from './pages/user/SingleAuthor';
 import Videos from './pages/user/Videos';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import AdminEditNew from './pages/admin/AdminEditNew';
+import AdminAuthors from './pages/admin/AdminAuthors';
+
 
 const themes = createTheme({
   direction:"rtl",
@@ -34,15 +39,19 @@ function App() {
     <ThemeProvider theme={themes}>
       <Routes>
         <Route path='' element={<Home/>}/>
-        {/* admin pages */}
+        {/* start admin pages */}
         <Route path='/admin' element={<AdminLand/>}/>
         <Route path='/admin/categories' element={<AdminCategories/>}/>
         <Route path='/admin/news' element={<AdminNews/>}/>
+        <Route path='/admin/news/edit/:newId' element={<AdminEditNew/>}/>
+        <Route path='/admin/authors' element={<AdminAuthors/>}/>
+        {/* end admin pages */}
         <Route path='opinions' element={<Opinions/>}/>
         <Route path='opinions/:categId' element={<OpinionsCategory/>}/>
         <Route path='authors/:authorId' element={<SingleAuthor/>}/>
         <Route path='videos' element={<Videos/>}/>
       </Routes>
+      <ToastContainer />
     </ThemeProvider>
   );
 }

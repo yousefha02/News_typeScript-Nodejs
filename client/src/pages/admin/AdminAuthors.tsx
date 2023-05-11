@@ -41,7 +41,7 @@ interface TabPanelProps {
   }
 
 
-function AdminNews() {
+function AdminAuthors() {
     const [value, setValue] = React.useState(0);
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -52,8 +52,8 @@ function AdminNews() {
         <Box sx={{ width: '100%' }}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-                <Tab label="إضافة خبر" {...a11yProps(0)} />
-                <Tab label="مشاهدة الأخبار" {...a11yProps(1)} />
+                <Tab label="إضافة مؤلف" {...a11yProps(0)} />
+                <Tab label="مشاهدة المؤلفين" {...a11yProps(1)} />
                 </Tabs>
             </Box>
             <TabPanel value={value} index={0}>
@@ -67,4 +67,4 @@ function AdminNews() {
   )
 }
 
-export default AdminNews
+export default AdminAuthors
