@@ -14,11 +14,12 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AdminEditNew from './pages/admin/AdminEditNew';
 import AdminAuthors from './pages/admin/AdminAuthors';
+import NewsByCategory from './pages/user/NewsByCategory';
 import AdminEditAuthor from './pages/admin/AdminEditAuthor';
 import AdminOpinions from './pages/admin/AdminOpinions';
 import AdminEditOpinion from './pages/admin/AdminEditOpinion';
 import AdminVideos from './pages/admin/AdminViedos';
-
+import SingleVideo from './pages/user/SingleVideo';
 
 const themes = createTheme({
   direction:"rtl",
@@ -43,7 +44,7 @@ function App() {
     <ThemeProvider theme={themes}>
       <Routes>
         <Route path='' element={<Home/>}/>
-        {/* start admin pages */}
+        {/* admin pages */}
         <Route path='/admin' element={<AdminLand/>}/>
         <Route path='/admin/categories' element={<AdminCategories/>}/>
         <Route path='/admin/news' element={<AdminNews/>}/>
@@ -54,10 +55,14 @@ function App() {
         <Route path='/admin/opinions/edit/:opinionId' element={<AdminEditOpinion/>}/>
         <Route path='/admin/videos' element={<AdminVideos/>}/>
         {/* end admin pages */}
+
+        {/* user pages */}
         <Route path='opinions' element={<Opinions/>}/>
         <Route path='opinions/:categId' element={<OpinionsCategory/>}/>
         <Route path='authors/:authorId' element={<SingleAuthor/>}/>
         <Route path='videos' element={<Videos/>}/>
+        <Route path='/:category/news' element={<NewsByCategory/>}/>
+        <Route path='/videos/:videoId' element={<SingleVideo/>}/>
       </Routes>
       <ToastContainer />
     </ThemeProvider>

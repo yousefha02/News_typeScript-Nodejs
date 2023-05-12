@@ -8,34 +8,7 @@ export default function Navbar() {
         <Box>
             <Container sx={{paddingY:"6px",overflowX:"auto",width:"100%",marginTop:"6px"}} className="links">
                 <Box sx={{display:"flex",columnGap:"28px",width:"700px"}}>
-                    <Link to="/" className='link'>
-                        <Typography>الرئيسية</Typography>
-                    </Link>
-                    <Link to="/" className='link'>
-                        <Typography>الرئيسية</Typography>
-                    </Link>
-                    <Link to="/" className='link'>
-                        <Typography>الرئيسية</Typography>
-                    </Link>
-                    <Link to="/" className='link'>
-                        <Typography>الرئيسية</Typography>
-                    </Link>
-                    <Link to="/" className='link'>
-                        <Typography>الرئيسية</Typography>
-                    </Link>
-                    <Link to="/" className='link'>
-                        <Typography>الرئيسية</Typography>
-                    </Link>
-                    <Link to="/" className='link'>
-                        <Typography>الرئيسية</Typography>
-                    </Link>
-                    <Link to="/" className='link'>
-                        <Typography>الرئيسية</Typography>
-                    </Link>
-                    <Link to="/" className='link'>
-                        <Typography>الرئيسية</Typography>
-                    </Link>
-                    <Link to="/" className='link'>
+                    <Link to="/politics/news" className='link'>
                         <Typography>الرئيسية</Typography>
                     </Link>
                 </Box>
