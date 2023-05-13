@@ -29,7 +29,10 @@ app.use((req,res,next)=>
     next();
 })
 
-const modules = require('./model/index')
+const modules = require('./model/index');
+
+const authRoutes = require('./routes/auth');
+app.use('/api/auth' , authRoutes);
 
 app.use((error,req,res,next)=>
 {
