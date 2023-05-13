@@ -16,6 +16,9 @@ import AdminEditNew from './pages/admin/AdminEditNew';
 import AdminAuthors from './pages/admin/AdminAuthors';
 import NewsByCategory from './pages/user/NewsByCategory';
 import AdminEditAuthor from './pages/admin/AdminEditAuthor';
+import AdminOpinions from './pages/admin/AdminOpinions';
+import AdminEditOpinion from './pages/admin/AdminEditOpinion';
+import AdminVideos from './pages/admin/AdminViedos';
 import SingleVideo from './pages/user/SingleVideo';
 
 const themes = createTheme({
@@ -48,6 +51,10 @@ function App() {
         <Route path='/admin/news/edit/:newId' element={<AdminEditNew/>}/>
         <Route path='/admin/authors' element={<AdminAuthors/>}/>
         <Route path='/admin/authors/edit/:authorId' element={<AdminEditAuthor/>}/>
+        <Route path='/admin/opinions' element={<AdminOpinions/>}/>
+        <Route path='/admin/opinions/edit/:opinionId' element={<AdminEditOpinion/>}/>
+        <Route path='/admin/videos' element={<AdminVideos/>}/>
+        {/* end admin pages */}
 
         {/* user pages */}
         <Route path='opinions' element={<Opinions/>}/>
