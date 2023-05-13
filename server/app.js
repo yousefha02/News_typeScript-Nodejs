@@ -37,6 +37,12 @@ app.use('/api/auth' , authRoutes);
 const categoryRoutes = require('./routes/category');
 app.use('/api/category' , categoryRoutes);
 
+const authorRoutes = require('./routes/author')
+app.use('/api/author',authorRoutes)
+
+const opinionRoutes = require('./routes/opinion')
+app.use('/api/opinion',opinionRoutes)
+
 app.use((error,req,res,next)=>
 {
     console.log(error);
