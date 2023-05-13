@@ -34,6 +34,9 @@ const modules = require('./model/index');
 const authRoutes = require('./routes/auth');
 app.use('/api/auth' , authRoutes);
 
+const categoryRoutes = require('./routes/category');
+app.use('/api/category' , categoryRoutes);
+
 app.use((error,req,res,next)=>
 {
     console.log(error);
