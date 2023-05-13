@@ -43,6 +43,12 @@ app.use('/api/author',authorRoutes)
 const opinionRoutes = require('./routes/opinion')
 app.use('/api/opinion',opinionRoutes)
 
+const newRoutes = require('./routes/new');
+app.use('/api/new' , newRoutes);
+
+const videoRoutes = require('./routes/video');
+app.use('/api/video' , videoRoutes);
+
 app.use((error,req,res,next)=>
 {
     console.log(error);
