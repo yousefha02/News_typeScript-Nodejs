@@ -37,6 +37,12 @@ app.use('/api/auth' , authRoutes);
 const categoryRoutes = require('./routes/category');
 app.use('/api/category' , categoryRoutes);
 
+const newRoutes = require('./routes/new');
+app.use('/api/new' , newRoutes);
+
+const videoRoutes = require('./routes/video');
+app.use('/api/video' , videoRoutes);
+
 app.use((error,req,res,next)=>
 {
     console.log(error);

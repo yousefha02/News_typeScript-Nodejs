@@ -61,10 +61,12 @@ module.exports.getAllCategories = async(req,res,next) => {
         const categories = await Category.findAll({
             include:[
                 {
-                    model:New
+                    model:New,
+                    attributes: ['id', 'title']
                 },
                 {
-                    model:Opinion
+                    model:Opinion,
+                    attributes: ['id', 'title']
                 }
             ]
         })
