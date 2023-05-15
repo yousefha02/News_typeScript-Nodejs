@@ -15,7 +15,11 @@ import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
+import { logoutAdmin } from '../../redux/adminSlice';
 
 const drawerWidth = 240;
 
@@ -40,6 +44,14 @@ export default function AdminLayout(props: Props) {
   {title:"الأراء",link:"/admin/opinions"} , {title:"الفيديو",link:"/admin/videos"} , 
   {title:"مواقع التواصل",link:"/admin/socialmedia"}
 ]
+
+  const {admin} = useSelector((st: RootState) => st.admin);
+  const dispatch = useDispatch();
+
+  const logoutHandler = () => {
+    dispatch(logoutAdmin());
+  }
+
 
   const drawer = (
     <div>
@@ -84,9 +96,10 @@ export default function AdminLayout(props: Props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
+          <Typography variant="h6" noWrap component="div" sx={{flex:1}}>
             مجلتي
           </Typography>
+          {admin &&<Button sx={{color:"white"}} onClick={logoutHandler}>تسجيل الخروج</Button>}
         </Toolbar>
       </AppBar>
       <Box

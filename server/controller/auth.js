@@ -44,7 +44,7 @@ exports.loginAdmin = async(req,res,next)=>{
         }
         const isPasswordMatch = await bcrypt.compare(pass,currentAdmin.password);
         if(!isPasswordMatch){
-            const error = new Error('كلمة السر غير صحيحة');
+            const error = new Error('كلمة المرور غير صحيحة');
             error.statusCode=422;
             throw error;
         };
