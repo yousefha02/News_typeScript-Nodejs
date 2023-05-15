@@ -50,11 +50,9 @@ function App() {
   
   const {admin} = useSelector((st: RootState) => st.admin);
   
-  
-
   return (
     <QueryClientProvider client={queryClient}>
-       <ThemeProvider theme={themes}>
+        <ThemeProvider theme={themes}>
         <Routes>
           <Route path='' element={<Home/>}/>
           {/* admin pages */}
