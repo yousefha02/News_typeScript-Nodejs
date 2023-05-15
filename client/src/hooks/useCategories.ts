@@ -1,4 +1,5 @@
 import {useQuery} from  'react-query'
+import { Categories } from '../types/Categories';
 
 
 export const fetchCategories = async () =>{
@@ -7,5 +8,5 @@ export const fetchCategories = async () =>{
 }
 
 export const useCategories = () => {
-    return useQuery('fetch-all-categories', fetchCategories);
+    return useQuery<{categories:Categories}>('fetch-all-categories', fetchCategories);
 }
