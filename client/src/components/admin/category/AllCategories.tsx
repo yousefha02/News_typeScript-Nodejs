@@ -4,7 +4,8 @@ import CategoryBox from './CategoryBox'
 import { useCategories } from '../../../hooks/useCategories'
 
 function AllCategories() {
-  const {data} = useCategories();
+  const {data , isLoading} = useCategories();
+  
   
   return (
     <Grid container spacing={2}>
