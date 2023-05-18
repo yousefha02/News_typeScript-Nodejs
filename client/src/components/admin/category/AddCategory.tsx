@@ -4,26 +4,60 @@ import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { RootState } from '../../../redux/store';
+import { singleCategory } from '../../../types/Categories';
+import { useNavigate } from 'react-router-dom';
 
 interface IFormInput {
     title: string;
   }
 
-function AddCategory() {
-    // const { register, handleSubmit, watch, formState: { errors } } = useForm();
+type props = {
+  category?: singleCategory,
+  isUpdate?: boolean
+}
+
+function AddCategory({isUpdate , category}:props) {
     const { control, handleSubmit  , formState: { errors },register} = useForm({
         defaultValues: {
-            title: '',
+            title: category?.title || "",
         }
       });
 
       const {token} = useSelector( (st : RootState) => st.admin);
 
       const [isLoad , setIsLoad] = useState<boolean>(false);
+      const navigate = useNavigate();
     
       const onSubmit: SubmitHandler<IFormInput> = async (data) => {
         setIsLoad(true);
-        try{
+        if(isUpdate){          
+          try{
+            const response = await fetch(`${process.env.REACT_APP_API_KEY}/api/category/update/${category?.id}`,{
+                method:"PUT",
+                headers:{
+                    'Content-Type':"application/json",
+                    "Authorization":token
+                },
+                body:JSON.stringify({...data})
+            })
+            const resData = await response.json();
+            setIsLoad(false);
+            if(response.status!==200 &&response.status!==201)
+            {
+              toast(resData.message,{position:"bottom-right", type:"error" , autoClose:1500})
+                throw new Error('failed occured')
+            }
+            toast(resData.message,{position:"bottom-right", type:"success" , autoClose:1500});
+            navigate('/admin/categories')
+        }
+        catch(err)
+        {
+          setIsLoad(false);
+            console.log(err)
+        }
+        }
+        else{
+          try{
             const response = await fetch(`${process.env.REACT_APP_API_KEY}/api/category/create`,{
                 method:"POST",
                 headers:{
@@ -46,6 +80,7 @@ function AddCategory() {
           setIsLoad(false);
             console.log(err)
         }
+        }
       };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -62,7 +97,9 @@ function AddCategory() {
           ?
           <Button variant='contained' sx={{marginTop:"20px" , width:"100px" , display:"block" , opacity:0.7}} color='secondary'>...</Button>
           :
-          <Button variant='contained' sx={{marginTop:"20px" , width:"100px" , display:"block"}} type="submit" color='secondary'>حفظ</Button>
+          <Button variant='contained' sx={{marginTop:"20px" , width:"100px" , display:"block"}} type="submit" color='secondary'
+          >{isUpdate ? "تعديل" :"حفظ"}
+          </Button>
         }
     </form>
   )

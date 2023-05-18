@@ -108,8 +108,10 @@ module.exports.getNewsWithPaginaition = async(req,res,next) => {
                 attributes: ['id', 'title'], // specify the attributes to retrieve
             }
         ]
-        });  
-        res.status(200).json({news});
+        }); 
+        const count = await New.count();
+        const totalPages = Math.ceil(count / PAGE_SIZE); 
+        res.status(200).json({news,totalPages});
     }
     catch(err){
         if(! err.statusCode){

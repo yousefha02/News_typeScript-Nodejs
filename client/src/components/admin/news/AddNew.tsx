@@ -8,6 +8,9 @@ import Editor from '../Editor';
 import { useCallback, useMemo, useState } from 'react';
 import {useDropzone} from 'react-dropzone';
 import { ToastContainer, toast } from 'react-toastify';
+import { useCategories } from '../../../hooks/useCategories';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../redux/store';
 
 
 
@@ -60,7 +63,7 @@ interface IFormInput {
   }
 
 function AddNew({title , description , categoryId , isUpdate}:AddNewProps) {
-    // const { register, handleSubmit, watch, formState: { errors } } = useForm();
+  const {data} = useCategories();
     const { control, handleSubmit  , formState: { errors },register} = useForm({
         defaultValues: {
             title: title || "",
@@ -69,11 +72,47 @@ function AddNew({title , description , categoryId , isUpdate}:AddNewProps) {
       });
 
       const [editorText , setEditorText]=useState("");
+      const {token} = useSelector( (st : RootState) => st.admin);
+      const [isLoad , setIsLoad] = useState<boolean>(false);
+
     
-      const onSubmit: SubmitHandler<IFormInput> = data => {
+      const onSubmit: SubmitHandler<IFormInput> = async (data) => {
         console.log(data)
-        console.log(editorText);
-        toast(" الرجاء تحميل الصورة ",{position:"bottom-right", type:"error" , autoClose:1500})
+        if(!editorText){
+          toast("إدخال وصف لخبر",{position:"bottom-right", type:"error" , autoClose:1500})
+          return;
+        }
+        if(!file){
+          toast(" الرجاء تحميل الصورة ",{position:"bottom-right", type:"error" , autoClose:1500});
+          return;
+        }
+        try{
+          const formData = new FormData();
+          formData.append('title' , data.title);
+          formData.append('description' , editorText);
+          formData.append('categoryId' , data.category);
+          formData.append('image' , file);
+          const response = await fetch(`${process.env.REACT_APP_API_KEY}/api/new/create`,{
+              method:"POST",
+              headers:{
+                  "Authorization":token
+              },
+              body: formData
+          })
+          const resData = await response.json();
+          setIsLoad(false);
+          if(response.status!==200 &&response.status!==201)
+          {
+            toast(resData.message,{position:"bottom-right", type:"error" , autoClose:1500})
+              throw new Error('failed occured')
+          }
+          toast(resData.message,{position:"bottom-right", type:"success" , autoClose:1500})
+      }
+      catch(err)
+      {
+        setIsLoad(false);
+          console.log(err)
+      }
       };
 
       const [file , setFile] = useState<File | null>(null);
@@ -125,9 +164,11 @@ function AddNew({title , description , categoryId , isUpdate}:AddNewProps) {
                 id="demo-simple-select"
                 label="القسم"
               >
-                <MenuItem value={10}>صحة</MenuItem>
-                <MenuItem value={20}>رياضة</MenuItem>
-                <MenuItem value={30}>تكنولوجيا</MenuItem>
+                {
+                  data?.categories.map(ca=>{
+                    return <MenuItem key={ca.id+"ked"} value={ca.id}>{ca.title}</MenuItem>
+                  })
+                }
               </Select>
             </FormControl>
               }
@@ -146,13 +187,9 @@ function AddNew({title , description , categoryId , isUpdate}:AddNewProps) {
             file && <Image src={URL.createObjectURL(file)}/>
           }
         </Box>
-        {
-          isUpdate
-          ?
-          <Button variant='contained' sx={{marginTop:"20px" , width:"140px" , display:"block"}} type="submit" color='secondary'>حفظ التعديل</Button>
-          :
-          <Button variant='contained' sx={{marginTop:"20px" , width:"100px" , display:"block"}} type="submit" color='secondary'>حفظ</Button>
-        }
+          <Button variant='contained' sx={{marginTop:"20px" , width:"100px" , display:"block"}} type="submit" color='secondary'>
+            {isUpdate?"حفظ التعديل":"حفظ"}
+          </Button>
     </form>
   )
 }

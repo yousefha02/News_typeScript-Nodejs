@@ -79,3 +79,19 @@ module.exports.getAllCategories = async(req,res,next) => {
         next(err);
     }
 }
+
+module.exports.getSingleCategory = async(req,res,next) => {
+    const {categoryId} = req.params;
+    try{
+        const category = await Category.findOne({
+            where:{id:categoryId}
+        })
+        res.status(200).json({category});
+    }
+    catch(err){
+        if(! err.statusCode){
+            err.statusCode=500;
+        }
+        next(err);
+    }
+}

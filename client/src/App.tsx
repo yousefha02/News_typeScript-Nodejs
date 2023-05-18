@@ -24,6 +24,7 @@ import AdminLogin from './pages/admin/AdminLogin';
 import { useSelector } from 'react-redux';
 import { RootState } from './redux/store';
 import { QueryClient, QueryClientProvider } from 'react-query'
+import AdminEditCategory from './pages/admin/EditCategory';
 
 
 const themes = createTheme({
@@ -61,6 +62,7 @@ function App() {
           <Route path='/admin/login' element={!admin ? <AdminLogin/> : <Navigate to={'/admin'}/>}/>
           <Route path='/admin' element={admin ? <AdminLand/> : <Navigate to={'/admin/login'}/>}/>
           <Route path='/admin/categories' element={admin ? <AdminCategories/> : <Navigate to={'/admin/login'}/>}/>
+          <Route path='/admin/categories/edit/:categoryId' element={admin ? <AdminEditCategory/> : <Navigate to={'/admin/login'}/>}/>
           <Route path='/admin/news' element={admin ? <AdminNews/> : <Navigate to={'/admin/login'}/>}/>
           <Route path='/admin/news/edit/:newId' element={admin ? <AdminEditNew/> : <Navigate to={'/admin/login'}/>}/>
           <Route path='/admin/authors' element={admin ? <AdminAuthors/> : <Navigate to={'/admin/login'}/>}/>
