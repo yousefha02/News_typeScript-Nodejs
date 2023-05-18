@@ -1,9 +1,11 @@
 import { Box,Typography,styled } from '@mui/material'
 import React from 'react'
 import {Link} from 'react-router-dom'
+import { New } from '../../../types/News';
 
 type props = {
-    big?:boolean
+    big?:boolean,
+    dataNew?:New
 }
 
 const CategoryText = styled(Typography)({
@@ -15,7 +17,7 @@ const CategoryText = styled(Typography)({
     fontWeight:"600",
 })
 
-export default function MainNewBox({big}:props) {
+export default function MainNewBox({big,dataNew}:props) {
     const Wrapper = styled(Box)({
         width:"100%",
         height:!big?"164px":"352px",
@@ -25,18 +27,18 @@ export default function MainNewBox({big}:props) {
         position:"relative",
     })
 
-    let text ="لوريم إيبسوم طريقة لكتابة النصوص في النشر والتصميم الجرافيكي"
-
     return (
         <Link to="">
             <Wrapper 
-            sx={{backgroundImage:`url('https://images.skynewsarabia.com/images/v1/2023/05/05/1618319/1100/619/1-1618319.jpg')`}}>
+            sx={{backgroundImage:`url('${process.env.REACT_APP_API_KEY}/images/${dataNew?.image}')`}}>
                 <Box sx={{padding:"8px"}}>
-                    <CategoryText>العالم</CategoryText>
+                    <CategoryText>{dataNew?.category?.title}</CategoryText>
                 </Box>
-                <Typography sx={{position:"absolute",bottom:0,paddingY:"4px",textAlign:"center",left:0,width:"100%",backgroundColor:"#000000ab",color:"white"}}>
-                    {big?text.slice(0,80):text.slice(0,30)}
-                </Typography>
+                <Box sx={{position:"absolute",bottom:0,paddingY:"4px",textAlign:"center",left:0,width:"100%",backgroundColor:"#000000ab",color:"white"}}>
+                    <Typography sx={{paddingX:"4px"}}>
+                        {big?dataNew?.title?.slice(0,80):dataNew?.title?.slice(0,30)}
+                    </Typography>
+                </Box>
             </Wrapper>
         </Link>
     )
