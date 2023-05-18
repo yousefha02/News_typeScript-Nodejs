@@ -8,6 +8,8 @@ import Editor from '../Editor';
 import { useCallback, useMemo, useState } from 'react';
 import {useDropzone} from 'react-dropzone';
 import {toast } from 'react-toastify';
+import { RootState } from '../../../redux/store';
+import { useSelector } from 'react-redux';
 
 
 
@@ -55,10 +57,11 @@ interface IFormInput {
   type AddNewProps = {
     name?:string,
     headline?: string,
-    isUpdate?: boolean
+    isUpdate?: boolean,
+    id?:number
   }
 
-function AddAuthor({name  , headline , isUpdate}:AddNewProps) {
+function AddAuthor({name  , headline , isUpdate , id}:AddNewProps) {
     const { control, handleSubmit  , formState: { errors },register} = useForm({
         defaultValues: {
             name: name || "",
@@ -66,11 +69,87 @@ function AddAuthor({name  , headline , isUpdate}:AddNewProps) {
         }
       });
 
+      const [isLoad , setIsLoad] = useState<boolean>(false);
+      const {token} = useSelector( (st : RootState) => st.admin);
+
+
     
-      const onSubmit: SubmitHandler<IFormInput> = data => {
-        console.log(data)
-        toast(" الرجاء تحميل الصورة ",{position:"bottom-right", type:"error" , autoClose:1500})
+      const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+        if(!file && !isUpdate){
+          toast(" الرجاء تحميل الصورة ",{position:"bottom-right", type:"error" , autoClose:1500});
+          return;
+        }
+        setIsLoad(true);
+        if(isUpdate){
+          handelUpdate(data.name  , data.headline);
+        }
+        else{
+          handelCreate(data.name , data.headline)
+        }
       };
+
+      
+      const handelUpdate = async (name:string , headline:string) =>{
+        try{
+          const formData = new FormData();
+          formData.append('name',name);
+          formData.append('headline',headline);
+          if(file){
+            formData.append('image' ,file);
+          }
+          const response = await fetch(`${process.env.REACT_APP_API_KEY}/api/author/${id}`,{
+              method:"PUT",
+              headers:{
+                  "Authorization":token
+              },
+              body: formData
+          })
+          const resData = await response.json();
+          setIsLoad(false);
+          if(response.status!==200 &&response.status!==201)
+          {
+            toast(resData.message,{position:"bottom-right", type:"error" , autoClose:1500})
+              throw new Error('failed occured')
+          }
+          toast(resData.message,{position:"bottom-right", type:"success" , autoClose:1500})
+      }
+      catch(err)
+      {
+        setIsLoad(false);
+          console.log(err)
+      }
+      }
+
+      const handelCreate = async (name:string , headline:string) =>{
+        try{
+          const formData = new FormData();
+          formData.append('name',name);
+          formData.append('headline',headline);
+          if(file){
+            formData.append('image' ,file);
+          }
+          const response = await fetch(`${process.env.REACT_APP_API_KEY}/api/author/add`,{
+              method:"POST",
+              headers:{
+                  "Authorization":token
+              },
+              body: formData
+          })
+          const resData = await response.json();
+          setIsLoad(false);
+          if(response.status!==200 &&response.status!==201)
+          {
+            toast(resData.message,{position:"bottom-right", type:"error" , autoClose:1500})
+              throw new Error('failed occured')
+          }
+          toast(resData.message,{position:"bottom-right", type:"success" , autoClose:1500})
+      }
+      catch(err)
+      {
+        setIsLoad(false);
+          console.log(err)
+      }
+      }
 
       const [file , setFile] = useState<File | null>(null);
       const onDrop = useCallback( (acceptedFiles:File[])=> {
@@ -129,11 +208,13 @@ function AddAuthor({name  , headline , isUpdate}:AddNewProps) {
           }
         </Box>
         {
-          isUpdate
+          isLoad
           ?
-          <Button variant='contained' sx={{marginTop:"20px" , width:"140px" , display:"block"}} type="submit" color='secondary'>حفظ التعديل</Button>
+          <Button variant='contained' sx={{marginTop:"20px" , width:"140px" , display:"block" , opacity:0.7}} color='secondary'>...</Button>
           :
-          <Button variant='contained' sx={{marginTop:"20px" , width:"100px" , display:"block"}} type="submit" color='secondary'>حفظ</Button>
+          <Button variant='contained' sx={{marginTop:"20px" , width:"140px" , display:"block"}} type="submit" color='secondary'>
+            {isUpdate?"حفظ التعديل":"حفظ"}
+          </Button>
         }
     </form>
   )

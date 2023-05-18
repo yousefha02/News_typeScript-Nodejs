@@ -59,25 +59,38 @@ interface IFormInput {
     title?:string,
     description?:string,
     categoryId?: string,
-    isUpdate?: boolean
+    isUpdate?: boolean,
+    newId?:number
   }
 
-function AddNew({title , description , categoryId , isUpdate}:AddNewProps) {
+function AddNew({title , description , categoryId , isUpdate,newId}:AddNewProps) {
   const {data} = useCategories();
+  
     const { control, handleSubmit  , formState: { errors },register} = useForm({
         defaultValues: {
             title: title || "",
             category: categoryId || ""
         }
       });
+      
 
       const [editorText , setEditorText]=useState("");
       const {token} = useSelector( (st : RootState) => st.admin);
       const [isLoad , setIsLoad] = useState<boolean>(false);
+      const [file , setFile] = useState<File | null>(null);
+
 
     
       const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-        console.log(data)
+        if(isUpdate){
+          handelUpdate(data.title , data.category);
+        }
+        else{
+          handelCreate(data.title , data.category);
+        }
+      };
+
+      const handelCreate = async(title:string ,category:string) => {
         if(!editorText){
           toast("إدخال وصف لخبر",{position:"bottom-right", type:"error" , autoClose:1500})
           return;
@@ -86,11 +99,12 @@ function AddNew({title , description , categoryId , isUpdate}:AddNewProps) {
           toast(" الرجاء تحميل الصورة ",{position:"bottom-right", type:"error" , autoClose:1500});
           return;
         }
+        setIsLoad(true);
         try{
           const formData = new FormData();
-          formData.append('title' , data.title);
+          formData.append('title' , title);
           formData.append('description' , editorText);
-          formData.append('categoryId' , data.category);
+          formData.append('categoryId' , category);
           formData.append('image' , file);
           const response = await fetch(`${process.env.REACT_APP_API_KEY}/api/new/create`,{
               method:"POST",
@@ -113,9 +127,45 @@ function AddNew({title , description , categoryId , isUpdate}:AddNewProps) {
         setIsLoad(false);
           console.log(err)
       }
-      };
+      }
 
-      const [file , setFile] = useState<File | null>(null);
+      const handelUpdate = async(title:string ,category:string) => {
+        if(!editorText){
+          toast("إدخال وصف لخبر",{position:"bottom-right", type:"error" , autoClose:1500})
+          return;
+        }
+        setIsLoad(true);
+        try{
+          const formData = new FormData();
+          formData.append('title' , title);
+          formData.append('description' , editorText);
+          formData.append('categoryId' , category);
+          if(file){
+            formData.append('image' , file);
+          }
+          const response = await fetch(`${process.env.REACT_APP_API_KEY}/api/new/update/${newId}`,{
+              method:"PUT",
+              headers:{
+                  "Authorization":token
+              },
+              body: formData
+          })
+          const resData = await response.json();
+          setIsLoad(false);
+          if(response.status!==200 &&response.status!==201)
+          {
+            toast(resData.message,{position:"bottom-right", type:"error" , autoClose:1500})
+              throw new Error('failed occured')
+          }
+          toast(resData.message,{position:"bottom-right", type:"success" , autoClose:1500})
+      }
+      catch(err)
+      {
+        setIsLoad(false);
+          console.log(err)
+      }
+      }
+
       const onDrop = useCallback( (acceptedFiles:File[])=> {
         setFile(acceptedFiles[0]);
       }, [])
@@ -163,10 +213,11 @@ function AddNew({title , description , categoryId , isUpdate}:AddNewProps) {
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 label="القسم"
+                defaultValue='1'
               >
                 {
                   data?.categories.map(ca=>{
-                    return <MenuItem key={ca.id+"ked"} value={ca.id}>{ca.title}</MenuItem>
+                    return <MenuItem key={ca.id+"ked"} value={`${ca.id}`}>{ca.title}</MenuItem>
                   })
                 }
               </Select>
@@ -187,9 +238,17 @@ function AddNew({title , description , categoryId , isUpdate}:AddNewProps) {
             file && <Image src={URL.createObjectURL(file)}/>
           }
         </Box>
-          <Button variant='contained' sx={{marginTop:"20px" , width:"100px" , display:"block"}} type="submit" color='secondary'>
+          {
+            !isLoad
+            ?
+            <Button variant='contained' sx={{marginTop:"20px" , width:"120px" , display:"block"}} type="submit" color='secondary'>
             {isUpdate?"حفظ التعديل":"حفظ"}
+            </Button>
+          :
+          <Button variant='contained' sx={{marginTop:"20px" , width:"120px" , display:"block" , opacity:0.7}}  color='secondary'>
+            ...
           </Button>
+          }
     </form>
   )
 }

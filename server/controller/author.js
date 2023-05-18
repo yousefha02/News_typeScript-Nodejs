@@ -54,7 +54,9 @@ exports.getSingleAuthor = async(req,res,next)=>
 {
     try{
         const {authorId} = req.params
-        const author = await Author.findOne({id:authorId,attributes:["name","id","headline","image"]})
+        const author = await Author.findOne({
+            where:{id:authorId},
+            attributes:["name","id","headline","image"]})
         if(!author)
         {
             const error = new Error("المؤلف غير موجود")
@@ -78,9 +80,11 @@ exports.getAllAuthors = async(req,res,next)=>
         const LIMIT_SIZE = 8 ;
         const page = req.query.page || 1
         const offset = (page - 1) * LIMIT_SIZE
-        const authors = await Author.findAll({attributes:["name","id","image"],limit:LIMIT_SIZE,offset,
-        order:[["createdAt","DESC"]]})
-        res.status(200).json({authors})
+        const authors = await Author.findAll({attributes:["name","id","image","headline"],limit:LIMIT_SIZE,offset,
+        order:[["createdAt","DESC"]]});
+        const count = await Author.count();
+        const totalPages = Math.ceil(count / LIMIT_SIZE); 
+        res.status(200).json({authors , totalPages})
     }
     catch(err){
         if(! err.statusCode){
@@ -107,7 +111,7 @@ exports.getAuthorOpinions = async(req,res,next)=>
         const offset = (page - 1) * LIMIT_SIZE
         const opinions = await Opinion.findAll({where:{authorId},limit:LIMIT_SIZE,offset,
         order:[["createdAt","DESC"]],attributes:["title","description","id"]})
-        res.status(200).json({opinions})
+        res.status(200).json({opinions })
     }
     catch(err){
         if(! err.statusCode){

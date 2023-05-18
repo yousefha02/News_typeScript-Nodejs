@@ -14,10 +14,11 @@ const Image = styled('img')({
 
 type NewProps = {
     isAdmin?:boolean
-    news?:New
+    news?:New,
+    handleDelete?:(id: number) => Promise<void>
 }
 
-export default function NewBox({isAdmin, news}:NewProps) {
+export default function NewBox({isAdmin, news , handleDelete}:NewProps) {
     return (
         <Paper sx={{overflow:"hidden"}}>
             <Image src={`${process.env.REACT_APP_API_KEY}/images/${news?.image}`}/>
@@ -29,7 +30,7 @@ export default function NewBox({isAdmin, news}:NewProps) {
             {
                 isAdmin &&
                 <Stack direction={"row"} paddingBottom={"12px"}>
-                    <Link to={'/admin/news/edit/1'}>
+                    <Link to={`/admin/news/edit/${news?.id}`}>
                         <Tooltip title="تعديل">
                             <IconButton sx={{minWidth:"10px"}} color="info">
                                 <EditIcon />
@@ -37,7 +38,7 @@ export default function NewBox({isAdmin, news}:NewProps) {
                         </Tooltip>
                     </Link>
                     <Tooltip title="حذف">
-                        <IconButton sx={{minWidth:"10px"}} color="error">
+                        <IconButton sx={{minWidth:"10px"}} color="error" onClick={()=>handleDelete && handleDelete(news?.id||0)}>
                             <DeleteOutlineIcon />
                         </IconButton>
                     </Tooltip>
