@@ -1,17 +1,22 @@
 import { Avatar, Box, Typography } from '@mui/material'
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { Opinion } from '../../types/Opinion'
 
-export default function Opinion() {
+type props = {
+    opinion?:Opinion
+}
+
+export default function OpinionBox({opinion}:props) {
     return (
         <Box sx={{backgroundColor:"#cfdde233",padding:"16px"}}>
             <Typography sx={{fontSize:"18px",marginBottom:"24px",fontWeight:"700"}}
-                >أسباب موضوعية للذهب 
+                >{opinion?.title} 
             </Typography>   
-            <Link to="/authors/yousef">
+            <Link to={`/authors/yousef/${opinion?.author?.id}`}>
                 <Box sx={{display:"flex",alignItems:"center",columnGap:"12px"}}>
-                    <Avatar sx={{width:"50px",height:"50px"}} src="https://mui.com/static/images/avatar/1.jpg"/>    
-                    <Typography sx={{color:"#41798c",fontSize:"15px"}}>يوسف أبوهاني</Typography>
+                    <Avatar sx={{width:"50px",height:"50px"}} src={`${process.env.REACT_APP_API_KEY}images/${opinion?.author?.image}`}/>    
+                    <Typography sx={{color:"#41798c",fontSize:"15px"}}>{opinion?.author?.name}</Typography>
                 </Box>
             </Link>
         </Box>

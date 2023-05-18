@@ -9,7 +9,8 @@ export type Opinion ={
     },
     author?:{
         id:number,
-        name:string
+        name:string,
+        image?:string
     },
     createdAt?: string ,
     updatedAt?: string,

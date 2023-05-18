@@ -119,7 +119,7 @@ exports.getLastOpinions = async(req,res,next)=>
 {
     try{
         const opinions = await Opinion.findAll(
-            {attributes:['id','title'],include:[{model:Author,attributes:['name','id']}],
+            {attributes:['id','title'],include:[{model:Author,attributes:['name','id','image']}],
             limit:8,order:[['createdAt',"DESC"]]}
         )
         res.status(200).json({opinions})
