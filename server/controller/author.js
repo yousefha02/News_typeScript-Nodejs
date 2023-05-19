@@ -78,10 +78,19 @@ exports.getAllAuthors = async(req,res,next)=>
 {
     try{
         const LIMIT_SIZE = 8 ;
-        const page = req.query.page || 1
-        const offset = (page - 1) * LIMIT_SIZE
-        const authors = await Author.findAll({attributes:["name","id","image","headline"],limit:LIMIT_SIZE,offset,
-        order:[["createdAt","DESC"]]});
+        const page = req.query.page || 1  // page=0 will send all authors
+        const offset = (page - 1) * LIMIT_SIZE;
+        let authors;
+        if(page == 0){
+            authors = await Author.findAll({attributes:["name","id","image","headline"],
+            order:[["createdAt","DESC"]]
+        });
+        }
+        else{
+            authors = await Author.findAll({attributes:["name","id","image","headline"],limit:LIMIT_SIZE,offset,
+            order:[["createdAt","DESC"]]
+        });
+        }
         const count = await Author.count();
         const totalPages = Math.ceil(count / LIMIT_SIZE); 
         res.status(200).json({authors , totalPages})
