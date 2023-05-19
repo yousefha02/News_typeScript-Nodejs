@@ -1,5 +1,9 @@
 import { Box, Button, TextField, Typography} from '@mui/material'
+import { useState } from 'react';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../redux/store';
+import { toast } from 'react-toastify';
 
 interface IFormInput {
     title: string;
@@ -14,9 +18,36 @@ function AddVideo() {
         }
       });
 
+      const {token} = useSelector( (st : RootState) => st.admin);
+
+      const [isLoad , setIsLoad] = useState<boolean>(false);
+
     
-      const onSubmit: SubmitHandler<IFormInput> = data => {
-        console.log(data)
+      const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+        setIsLoad(true);
+          try{
+            const response = await fetch(`${process.env.REACT_APP_API_KEY}/api/video/create`,{
+                method:"POST",
+                headers:{
+                    'Content-Type':"application/json",
+                    "Authorization":token
+                },
+                body:JSON.stringify({...data})
+            })
+            const resData = await response.json();
+            setIsLoad(false);
+            if(response.status!==200 &&response.status!==201)
+            {
+              toast(resData.message,{position:"bottom-left", type:"error" , autoClose:1500})
+                throw new Error('failed occured')
+            }
+            toast(resData.message,{position:"bottom-left", type:"success" , autoClose:1500});
+        }
+        catch(err)
+        {
+          setIsLoad(false);
+            console.log(err)
+        }
       };
 
   return (
@@ -41,7 +72,13 @@ function AddVideo() {
           />
           {errors.url && <Typography variant='h6' color="error" sx={{fontSize:"12px", marginTop:"12px"}}>هذا الحقل مطلوب</Typography>}
         </Box>
-        <Button variant='contained' sx={{marginTop:"20px" , width:"100px" , display:"block"}} type="submit" color='secondary'>حفظ</Button>
+        {
+          isLoad
+          ?
+          <Button variant='contained' sx={{marginTop:"20px" , width:"100px" , display:"block", opacity:0.7}}  color='secondary'>...</Button>
+          :
+          <Button variant='contained' sx={{marginTop:"20px" , width:"100px" , display:"block"}} type="submit" color='secondary'>حفظ</Button>
+        }
     </form>
   )
 }

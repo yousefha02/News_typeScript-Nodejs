@@ -9,12 +9,15 @@ import { useSelector } from 'react-redux';
 
 function AdminViewNews() {
     const [page, setPage] = useState<number>(1);
-    const {data , isFetching , refetch} = useAllNews(page);
+    const {data , isLoading , refetch} = useAllNews(page);
     const {token} = useSelector( (st : RootState) => st.admin);
+    const [isLoad , setIsLoad] = useState(false);
 
 
     useEffect(()=>{
+        setIsLoad(true);
         refetch();
+        setIsLoad(false);
     },[page,refetch])
 
     const handleDelete = async (id:number) :Promise<void> => {
@@ -39,7 +42,7 @@ function AdminViewNews() {
     }
     
   return (
-    isFetching
+    isLoading || isLoad
     ?
     <Grid container spacing={2}>
         <Grid item sm={6} md={4} lg={3}>

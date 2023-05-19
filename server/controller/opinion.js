@@ -101,10 +101,12 @@ exports.getAllOpinions = async(req,res,next)=>
         const offset = (page - 1) * PAGE_SIZE;
         const opinions = await Opinion.findAll(
             {limit:PAGE_SIZE,offset,order:[['createdAt','DESC']],
-            include:[{model:Author,attributes:['id','name']},{model:Category,attributes:['id','title']}],
+            include:[{model:Author,attributes:['id','name','image']},{model:Category,attributes:['id','title']}],
             attributes:['id','title','description','image']}
         )
-        res.status(200).json({opinions})
+        const count = await Opinion.count();
+        const totalPages = Math.ceil(count / PAGE_SIZE); 
+        res.status(200).json({opinions,totalPages})
     }
     catch(err){
         if(!err.statusCode){

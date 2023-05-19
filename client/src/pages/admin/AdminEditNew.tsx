@@ -12,7 +12,6 @@ export default function AdminEditNew() {
     const {newId} = useParams();
     const {token} = useSelector((s:RootState) => s.admin)
     const {isLoading , data} = useSingleNewsAdmin(newId||"" , token);
-    console.log(data);
     
   return (
     <AdminLayout>

@@ -7,18 +7,18 @@ import PaginationBox from '../../reusableUi/Pagenation';
 
 function AdminViewAuthors() {
     const [page, setPage] = useState<number>(1);
-    const {data , isFetching , refetch} = useAllAuthors(page);
-    console.log(data);
-    
-
+    const {data , isLoading , refetch} = useAllAuthors(page);
+    const [isLoad , setIsLoad] = useState(false);
 
     useEffect(()=>{
+        setIsLoad(true);
         refetch();
+        setIsLoad(false);
     },[page,refetch])
 
     
-  return (
-    isFetching
+    return (
+    isLoad || isLoading
     ?
     <Grid container spacing={2}>
         <Grid item sm={6} md={4} lg={3}>

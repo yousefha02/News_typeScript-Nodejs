@@ -76,7 +76,7 @@ function AddAuthor({name  , headline , isUpdate , id}:AddNewProps) {
     
       const onSubmit: SubmitHandler<IFormInput> = async (data) => {
         if(!file && !isUpdate){
-          toast(" الرجاء تحميل الصورة ",{position:"bottom-right", type:"error" , autoClose:1500});
+          toast(" الرجاء تحميل الصورة ",{position:"bottom-left", type:"error" , autoClose:1500});
           return;
         }
         setIsLoad(true);
@@ -108,10 +108,10 @@ function AddAuthor({name  , headline , isUpdate , id}:AddNewProps) {
           setIsLoad(false);
           if(response.status!==200 &&response.status!==201)
           {
-            toast(resData.message,{position:"bottom-right", type:"error" , autoClose:1500})
+            toast(resData.message,{position:"bottom-left", type:"error" , autoClose:1500})
               throw new Error('failed occured')
           }
-          toast(resData.message,{position:"bottom-right", type:"success" , autoClose:1500})
+          toast(resData.message,{position:"bottom-left", type:"success" , autoClose:1500})
       }
       catch(err)
       {
@@ -139,10 +139,10 @@ function AddAuthor({name  , headline , isUpdate , id}:AddNewProps) {
           setIsLoad(false);
           if(response.status!==200 &&response.status!==201)
           {
-            toast(resData.message,{position:"bottom-right", type:"error" , autoClose:1500})
+            toast(resData.message,{position:"bottom-left", type:"error" , autoClose:1500})
               throw new Error('failed occured')
           }
-          toast(resData.message,{position:"bottom-right", type:"success" , autoClose:1500})
+          toast(resData.message,{position:"bottom-left", type:"success" , autoClose:1500})
       }
       catch(err)
       {

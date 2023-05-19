@@ -4,41 +4,33 @@ import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { RootState } from '../../../redux/store';
-import { singleCategory } from '../../../types/Categories';
 import { useNavigate } from 'react-router-dom';
 
 interface IFormInput {
     title: string;
   }
 
-type props = {
-  category?: singleCategory,
-  isUpdate?: boolean
-}
-
-function AddCategory({isUpdate , category}:props) {
+function AddSocialMedia() {
     const { control, handleSubmit  , formState: { errors },register} = useForm({
         defaultValues: {
-            title: category?.title || "",
+            title:"",
         }
       });
 
       const {token} = useSelector( (st : RootState) => st.admin);
 
       const [isLoad , setIsLoad] = useState<boolean>(false);
-      const navigate = useNavigate();
     
       const onSubmit: SubmitHandler<IFormInput> = async (data) => {
         setIsLoad(true);
-        if(isUpdate){          
           try{
-            const response = await fetch(`${process.env.REACT_APP_API_KEY}/api/category/update/${category?.id}`,{
-                method:"PUT",
+            const response = await fetch(`${process.env.REACT_APP_API_KEY}/api/socialmedia/create`,{
+                method:"POST",
                 headers:{
                     'Content-Type':"application/json",
                     "Authorization":token
                 },
-                body:JSON.stringify({...data})
+                body:JSON.stringify({Link:data.title})
             })
             const resData = await response.json();
             setIsLoad(false);
@@ -47,39 +39,12 @@ function AddCategory({isUpdate , category}:props) {
               toast(resData.message,{position:"bottom-left", type:"error" , autoClose:1500})
                 throw new Error('failed occured')
             }
-            toast(resData.message,{position:"bottom-left", type:"success" , autoClose:1500});
-            navigate('/admin/categories')
+            toast(resData.message,{position:"bottom-left", type:"success" , autoClose:1500})
         }
         catch(err)
         {
           setIsLoad(false);
             console.log(err)
-        }
-        }
-        else{
-          try{
-            const response = await fetch(`${process.env.REACT_APP_API_KEY}/api/category/create`,{
-                method:"POST",
-                headers:{
-                    'Content-Type':"application/json",
-                    "Authorization":token
-                },
-                body:JSON.stringify({...data})
-            })
-            const resData = await response.json();
-            setIsLoad(false);
-            if(response.status!==200 &&response.status!==201)
-            {
-              toast(resData.message,{position:"bottom-right", type:"error" , autoClose:1500})
-                throw new Error('failed occured')
-            }
-            toast(resData.message,{position:"bottom-right", type:"success" , autoClose:1500})
-        }
-        catch(err)
-        {
-          setIsLoad(false);
-            console.log(err)
-        }
         }
       };
   return (
@@ -87,7 +52,7 @@ function AddCategory({isUpdate , category}:props) {
         <Controller
         control={control}
         {...register("title", { required: true })} 
-        render={({ field }) => <TextField {...field} id="outlined-basic" label="عنوان قسم" color='secondary' 
+        render={({ field }) => <TextField {...field} id="outlined-basic" label="عنوان الرابط" color='secondary' 
         variant="outlined" fullWidth sx={{maxWidth:"600px"}} autoComplete='off'/>
         }
         />
@@ -98,11 +63,11 @@ function AddCategory({isUpdate , category}:props) {
           <Button variant='contained' sx={{marginTop:"20px" , width:"100px" , display:"block" , opacity:0.7}} color='secondary'>...</Button>
           :
           <Button variant='contained' sx={{marginTop:"20px" , width:"100px" , display:"block"}} type="submit" color='secondary'
-          >{isUpdate ? "تعديل" :"حفظ"}
+          >حفظ
           </Button>
         }
     </form>
   )
 }
 
-export default AddCategory
+export default AddSocialMedia

@@ -25,6 +25,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from './redux/store';
 import { QueryClient, QueryClientProvider } from 'react-query'
 import AdminEditCategory from './pages/admin/EditCategory';
+import AdminSocialMedia from './pages/admin/AdminSocialMedia';
 
 
 const themes = createTheme({
@@ -68,6 +69,7 @@ function App() {
           <Route path='/admin/opinions' element={admin ? <AdminOpinions/> : <Navigate to={'/admin/login'}/>}/>
           <Route path='/admin/opinions/edit/:opinionId' element={admin ? <AdminEditOpinion/> : <Navigate to={'/admin/login'}/>}/>
           <Route path='/admin/videos' element={admin ? <AdminVideos/> : <Navigate to={'/admin/login'}/>}/>
+          <Route path='/admin/socialmedia' element={admin ? <AdminSocialMedia/> : <Navigate to={'/admin/login'}/>}/>
           {/* end admin pages */}
 
           {/* user pages */}

@@ -54,8 +54,10 @@ module.exports.getAllVideos =async (req,res,next) => {
         limit: PAGE_SIZE,
         offset,
         order: [['createdAt', 'DESC']],
-        });  
-        res.status(200).json({videos});
+        }); 
+        const count = await Video.count();
+        const totalPages = Math.ceil(count / PAGE_SIZE);  
+        res.status(200).json({videos,totalPages});
     }
     catch(err){
         if(! err.statusCode){
