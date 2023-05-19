@@ -10,3 +10,12 @@ export const fetchAllVideo = async (page:number , size:number) =>{
 export const useAllVideos = (page:number, size:number) => {
     return useQuery<{videos:video[],totalPages:number}>('fetch-all-videos', ()=>fetchAllVideo(page,size));
 }
+
+export const fetchVideos = async () =>{
+    const res = await fetch(`${process.env.REACT_APP_API_KEY}/api/video/all?size=8&&page=1`);
+    return res.json(); 
+}
+
+export const useVideos = () => {
+    return useQuery<{videos:video[]}>('fetch-videos', fetchVideos);
+}
