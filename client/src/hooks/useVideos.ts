@@ -19,3 +19,21 @@ export const fetchVideos = async () =>{
 export const useVideos = () => {
     return useQuery<{videos:video[]}>('fetch-videos', fetchVideos);
 }
+
+export const fetchSingleVideo = async (id:string) =>{
+    const res = await fetch(`${process.env.REACT_APP_API_KEY}/api/video/${id}`);
+    return res.json(); 
+}
+
+export const useSingleVideo = (id:string) => {
+    return useQuery<{video:video}>(['fetch-video',id], ()=>fetchSingleVideo(id));
+}
+
+export const fetchRandomVideos = async () =>{
+    const res = await fetch(`${process.env.REACT_APP_API_KEY}/api/video/random`);
+    return res.json(); 
+}
+
+export const useRandomVideos = () => {
+    return useQuery<{videos:video[]}>('fetch-videos-random', fetchRandomVideos);
+}

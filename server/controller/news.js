@@ -265,7 +265,10 @@ module.exports.getNewsByCategoryWithPaginaition = async(req,res,next) => {
                 }
             ]
         });  
-        res.status(200).json({news});
+        const count = await New.count({where:{categoryId:categoryId}});
+        const totalPages = Math.ceil(count / PAGE_SIZE); 
+        const category = await Category.findOne({where:{id:categoryId}});
+        res.status(200).json({news , totalPages , category});
     }
     catch(err){
         if(! err.statusCode){

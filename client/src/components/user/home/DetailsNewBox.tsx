@@ -5,7 +5,9 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import { New } from '../../../types/News';
 
 const Image = styled('img')({
-    width:"100%"
+    width:"100%",
+    height:"200px",
+    objectFit:"cover"
 })
 
 const ViewBox = styled(Box)({
@@ -29,10 +31,10 @@ export default function DetailsNewBox({views,dataNew}:props) {
     return (
         <Link to="/">
             <Grid container spacing={2}>
-                <Grid item xs={5}>
+                <Grid item xs={6}>
                     <Image src={`${process.env.REACT_APP_API_KEY}/images/${dataNew?.image}`}/>
                 </Grid>
-                <Grid item xs={7}>
+                <Grid item xs={6}>
                     <Typography sx={{fontSize:"18px",color:"black",fontWeight:"700",marginBottom:"22px"}}>{dataNew?.title?.slice(0,60)}</Typography>
                     {views&&
                     <ViewBox sx={{color:"black"}}>

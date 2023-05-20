@@ -118,9 +118,11 @@ exports.getAuthorOpinions = async(req,res,next)=>
         const LIMIT_SIZE = 6 ;
         const page = req.query.page || 1
         const offset = (page - 1) * LIMIT_SIZE
-        const opinions = await Opinion.findAll({where:{authorId},limit:LIMIT_SIZE,offset,
-        order:[["createdAt","DESC"]],attributes:["title","description","id"]})
-        res.status(200).json({opinions })
+        const opinions = await Opinion.findAll({where:{authorId:authorId},limit:LIMIT_SIZE,offset,
+        order:[["createdAt","DESC"]],attributes:["title","description","id"]});
+        const count = await Opinion.count({where:{authorId:authorId}});
+        const totalPages = Math.ceil(count / LIMIT_SIZE); 
+        res.status(200).json({opinions , totalPages})
     }
     catch(err){
         if(! err.statusCode){

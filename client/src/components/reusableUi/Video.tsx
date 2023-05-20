@@ -14,7 +14,7 @@ export default function VideoBox({video}:props) {
             <ReactPlayer url={video?.url} width="100%" height={150}/>
             <Box sx={{padding:"0px 8px 16px"}}>
                 <Link to={`/videos/${video?.id}`}>
-                    <Typography sx={{marginTop:"12px",fontWeight:"700",fontSize:"15px"}}>{video?.title.slice(0,80)}</Typography>
+                    <Typography sx={{marginTop:"12px",fontWeight:"700",fontSize:"15px"}}>{video?.title?.slice(0,80)}</Typography>
                 </Link>
             </Box>
         </Paper>

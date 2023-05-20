@@ -7,8 +7,8 @@ export type video ={
 }
 export type Video = {
     id:number,
-    title:string,
-    url:string,
+    title?:string,
+    url?:string,
     createdAt?:string,
     updatedAt?:string
 }

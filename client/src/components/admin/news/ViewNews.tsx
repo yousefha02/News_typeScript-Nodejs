@@ -13,7 +13,6 @@ function AdminViewNews() {
     const {token} = useSelector( (st : RootState) => st.admin);
     const [isLoad , setIsLoad] = useState(false);
 
-
     useEffect(()=>{
         setIsLoad(true);
         refetch();

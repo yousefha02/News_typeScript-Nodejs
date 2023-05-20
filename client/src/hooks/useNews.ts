@@ -1,5 +1,6 @@
 import {useQuery} from  'react-query'
 import { New } from '../types/News';
+import { singleCategory } from '../types/Categories';
 
 
 export const fetchAllNews = async (page:number) =>{    
@@ -22,4 +23,14 @@ export const fetchSingleNewsAdmin = async (id:string , token:string) =>{
 
 export const useSingleNewsAdmin = (id:string,token:string) => {
     return useQuery<{new:New}>(['fetch-single-admin-news',id], ()=>fetchSingleNewsAdmin(id,token));
+}
+
+
+export const fetchAllNewsByCategory = async (page:number , id:string) =>{    
+    const res = await fetch(`${process.env.REACT_APP_API_KEY}/api/new/category/${id}?page=${page}`);
+    return res.json(); 
+}
+
+export const useAllNewsByCategory = (page:number,id:string) => {
+    return useQuery<{news:New[],totalPages:number , category:singleCategory}>(['fetch-all-news-byCategory',id], ()=>fetchAllNewsByCategory(page,id));
 }
