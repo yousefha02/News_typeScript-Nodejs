@@ -5,13 +5,18 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
+import HomeIcon from '@mui/icons-material/Home';
+import CategoryIcon from '@mui/icons-material/Category';
+import NewspaperIcon from '@mui/icons-material/Newspaper';
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+import TagIcon from '@mui/icons-material/Tag';
+import OndemandVideoIcon from '@mui/icons-material/OndemandVideo';
+import ArticleIcon from '@mui/icons-material/Article';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -40,9 +45,10 @@ export default function AdminLayout(props: Props) {
     setMobileOpen(!mobileOpen);
   };
 
-  const links =[{title:"الأقسام",link:"/admin/categories"}, {title:"الأخبار",link:"/admin/news"} , {title:"المؤلفين",link:"/admin/authors"},
-  {title:"الأراء",link:"/admin/opinions"} , {title:"الفيديو",link:"/admin/videos"} , 
-  {title:"مواقع التواصل",link:"/admin/socialmedia"}
+  const links =[{title:"لوحة التحكم",link:"/admin" ,icon:HomeIcon},{title:"الأقسام",link:"/admin/categories",icon:CategoryIcon}, 
+  {title:"الأخبار",link:"/admin/news",icon:NewspaperIcon} , {title:"المؤلفين",link:"/admin/authors",icon:PeopleAltIcon},
+  {title:"الأراء",link:"/admin/opinions",icon:ArticleIcon} , {title:"الفيديو",link:"/admin/videos",icon:OndemandVideoIcon} , 
+  {title:"مواقع التواصل",link:"/admin/socialmedia",icon:TagIcon}
 ]
 
   const {admin} = useSelector((st: RootState) => st.admin);
@@ -63,7 +69,7 @@ export default function AdminLayout(props: Props) {
           <ListItem key={text.title} disablePadding>
             <ListItemButton>
               <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                <text.icon/>
               </ListItemIcon>
               <ListItemText primary={text.title} />
             </ListItemButton>
@@ -136,7 +142,7 @@ export default function AdminLayout(props: Props) {
       </Box>
       <Box
         component="main"
-        sx={{ flexGrow: 1, p: 3, width: { md: `calc(100% - ${drawerWidth}px)` } }}
+        sx={{ flexGrow: 1, p: 3, width: { md: `calc(100% - ${drawerWidth}px)` } , overflow:"auto"}}
       >
         <Toolbar />
         {props.children}
