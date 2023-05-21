@@ -52,6 +52,9 @@ app.use('/api/video' , videoRoutes);
 const socialRoutes = require('./routes/socialmedia');
 app.use('/api/socialmedia' ,socialRoutes);
 
+const adminRoutes = require('./routes/admin');
+app.use('/api/admin' ,adminRoutes);
+
 app.use((error,req,res,next)=>
 {
     console.log(error);

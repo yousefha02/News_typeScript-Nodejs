@@ -173,7 +173,13 @@ module.exports.getMostViewsNews = async(req,res,next) => {
     try{
         const news = await New.findAll({
             order: [['views', 'DESC']],
-            limit: 6
+            limit: 6,
+            include:[
+                {
+                    model:Category,
+                    attributes: ['id', 'title'],
+                }
+            ]
         });
         res.status(200).json({news});
     }

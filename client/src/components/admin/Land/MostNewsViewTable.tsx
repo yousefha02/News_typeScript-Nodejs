@@ -6,6 +6,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { useViewNews } from '../../../hooks/useViewNews';
 
 function createData(
   name: string,
@@ -26,6 +27,7 @@ const rows = [
 ];
 
 export default function MostNewsTable() {
+  const {data} = useViewNews();
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -37,16 +39,16 @@ export default function MostNewsTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {data?.news.map((row) => (
             <TableRow
-              key={row.name}
+              key={row.id+"nkbh"}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {"عنا عنوان الخبر"}
+                {row.title}
               </TableCell>
-              <TableCell >10</TableCell>
-              <TableCell >صحة</TableCell>
+              <TableCell >{row.views}</TableCell>
+              <TableCell >{row.category?.title}</TableCell>
             </TableRow>
           ))}
         </TableBody>

@@ -4,8 +4,10 @@ import OndemandVideoIcon from '@mui/icons-material/OndemandVideo';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import ArticleIcon from '@mui/icons-material/Article';
 import React from 'react'
+import { useBoxInfo } from '../../../hooks/admin';
 
 function InformationBoxes() {
+    const {data} = useBoxInfo();
   return (
     <Grid container spacing={2}>
         <Grid item xs={12} sm={6} lg={3}>
@@ -16,7 +18,7 @@ function InformationBoxes() {
                 </Box>
                 <Box>
                     <Typography variant='h6'>الأخبار</Typography>
-                    <Typography sx={{fontWeight:"bold" , fontSize:"20px"}}>1</Typography>
+                    <Typography sx={{fontWeight:"bold" , fontSize:"20px"}}>{data?.news}</Typography>
                 </Box>
             </Paper>
         </Grid>
@@ -28,7 +30,7 @@ function InformationBoxes() {
                 </Box>
                 <Box>
                     <Typography variant='h6'>الفيديوهات</Typography>
-                    <Typography sx={{fontWeight:"bold" , fontSize:"20px"}}>1</Typography>
+                    <Typography sx={{fontWeight:"bold" , fontSize:"20px"}}>{data?.videos}</Typography>
                 </Box>
             </Paper>
         </Grid>
@@ -40,7 +42,7 @@ function InformationBoxes() {
                 </Box>
                 <Box>
                     <Typography variant='h6'>المؤلفين</Typography>
-                    <Typography sx={{fontWeight:"bold" , fontSize:"20px"}}>1</Typography>
+                    <Typography sx={{fontWeight:"bold" , fontSize:"20px"}}>{data?.authors}</Typography>
                 </Box>
             </Paper>
         </Grid>
@@ -52,12 +54,12 @@ function InformationBoxes() {
                 </Box>
                 <Box>
                     <Typography variant='h6'>الأراء</Typography>
-                    <Typography sx={{fontWeight:"bold" , fontSize:"20px"}}>1</Typography>
+                    <Typography sx={{fontWeight:"bold" , fontSize:"20px"}}>{data?.opinions}</Typography>
                 </Box>
             </Paper>
         </Grid>
     </Grid>
-  )
+    )
 }
 
 export default InformationBoxes
