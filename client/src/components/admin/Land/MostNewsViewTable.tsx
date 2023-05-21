@@ -33,20 +33,22 @@ export default function MostNewsTable() {
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
+          <TableCell>#</TableCell>
             <TableCell>عنوان الخبر</TableCell>
             <TableCell >عدد الزيارات</TableCell>
             <TableCell>التصنيف</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {data?.news.map((row) => (
+          {data?.news.map((row,index) => (
             <TableRow
               key={row.id+"nkbh"}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {row.title}
+                {index+1}
               </TableCell>
+              <TableCell >{row.title}</TableCell>
               <TableCell >{row.views}</TableCell>
               <TableCell >{row.category?.title}</TableCell>
             </TableRow>
