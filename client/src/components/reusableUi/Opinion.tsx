@@ -17,7 +17,7 @@ export default function OpinionBox({opinion}:props) {
             </Link> 
             <Link to={`/authors/${opinion?.author?.id}`}>
                 <Box sx={{display:"flex",alignItems:"center",columnGap:"12px"}}>
-                    <Avatar sx={{width:"50px",height:"50px"}} src={`${process.env.REACT_APP_API_KEY}images/${opinion?.author?.image}`}/>    
+                    <Avatar sx={{width:"50px",height:"50px"}} src={`${process.env.REACT_APP_API_KEY}/images/${opinion?.author?.image}`}/>    
                     <Typography sx={{color:"#41798c",fontSize:"15px"}}>{opinion?.author?.name}</Typography>
                 </Box>
             </Link>

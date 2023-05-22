@@ -162,7 +162,7 @@ exports.getCateogiresWithOpinion = async(req,res,next)=>
     try{
         const OPINION_LIMIT = 8 ;
         const categories = await Category.findAll({attributes:["id","title"],
-        include:[{model:Opinion,limit:OPINION_LIMIT,order:[["createdAt","DESC"]],attributes:["id","title","authorId"],include:[{model:Author,attributes:["id","name"]}]}]})
+        include:[{model:Opinion,limit:OPINION_LIMIT,order:[["createdAt","DESC"]],attributes:["id","title","authorId"],include:[{model:Author,attributes:["id","name","image"]}]}]})
         res.status(200).json({categories})
     }
     catch(err){
@@ -189,8 +189,10 @@ exports.getOpinionByCategory = async(req,res,next)=>
             throw error ; 
         }
         const opinions = await Opinion.findAll({where:{categoryId:categoryId},limit:LIMIT_SIZE,offset,
-            attributes:["title","id"],order:[["createdAt","DESC"]],include:[{model:Author,attributes:['id','name']}]})
-        res.status(200).json({opinions})
+            attributes:["title","id"],order:[["createdAt","DESC"]],include:[{model:Author,attributes:['id','name']}]});
+        const count = await Opinion.count();
+        const totalPages = Math.ceil(count / LIMIT_SIZE); 
+        res.status(200).json({opinions , title:category.title , totalPages})
     }
     catch(err){
         if(!err.statusCode){
