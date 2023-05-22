@@ -139,7 +139,7 @@ exports.getSingleOpinion = async(req,res,next)=>
     try{
         const {opinionId} = req.params
         const opinion = await Opinion.findOne({where:{id:opinionId},attributes:{exclude:['authorId','categoryId']}
-                ,include:[{model:Author,attributes:['name','id']},{model:Category,attributes:['title','id']}]})
+                ,include:[{model:Author,attributes:['name','id','image']},{model:Category,attributes:['title','id']}]})
         if(!opinion)
         {
             const error = new Error('الرأي غير متوفر')

@@ -27,6 +27,7 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 import AdminEditCategory from './pages/admin/EditCategory';
 import AdminSocialMedia from './pages/admin/AdminSocialMedia';
 import SingleNew from './pages/user/SingleNew';
+import SingleOpinion from './pages/user/SingleOpinion';
 
 
 const themes = createTheme({
@@ -81,6 +82,7 @@ function App() {
           <Route path='/:category/news' element={<NewsByCategory/>}/>
           <Route path='/videos/:videoId' element={<SingleVideo/>}/>
           <Route path='news/:newId' element={<SingleNew/>}/>
+          <Route path='opinion/:opinionId' element={<SingleOpinion/>}/>
         </Routes>
         <ToastContainer />
       </ThemeProvider>

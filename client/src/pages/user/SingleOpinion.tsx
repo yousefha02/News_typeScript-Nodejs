@@ -5,10 +5,11 @@ import {useParams} from 'react-router-dom'
 import { useSingleNew } from '../../hooks/useNews'
 import Loading from '../../components/reusableUi/Loading'
 import SingleNewDetails from '../../components/user/SingleNewDetails'
+import { useSingleOpinion } from '../../hooks/useOpinions'
 
-export default function SingleNew() {
-    const {newId} = useParams()
-    const {data,isLoading} = useSingleNew(newId||'')
+export default function SingleOpinion() {
+    const {opinionId} = useParams()
+    const {data,isLoading} = useSingleOpinion(opinionId||'')
 
     return (
         <Layout>
@@ -19,7 +20,7 @@ export default function SingleNew() {
                     :
                     <Grid container spacing={2}>
                         <Grid item xs={12} md={8} lg={7}>
-                            <SingleNewDetails newData={data?.new}/>
+                            <SingleNewDetails isOpinion={true} newData={data?.opinion}/>
                         </Grid>
                         <Grid item xs={12} md={4} lg={5} sx={{justifyContent:"center",display:"flex"}}>
                             <Box sx={{position:{md:"fixed"}}}>
