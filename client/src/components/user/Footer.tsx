@@ -17,7 +17,7 @@ export default function Footer() {
                 </Box>
                 <Divider/>
                 <Typography sx={{marginTop:"20px",marginBottom:"20px",textAlign:"center",fontSize:"15px"}}>
-                    &copy; جميع الحقوق محفوظة لصفحيفة مجلتي {new Date().getFullYear()}
+                    &copy; جميع الحقوق محفوظة لموقع مجلتي {new Date().getFullYear()}
                 </Typography>
             </Container>
         </Box>
