@@ -23,7 +23,7 @@ export default function NewBox({isAdmin, news , handleDelete}:NewProps) {
         <Paper sx={{overflow:"hidden"}}>
             <Image src={`${process.env.REACT_APP_API_KEY}/images/${news?.image}`}/>
             <Box sx={{padding:"0px 8px 10px"}}>
-                <Link to="/news/1">
+                <Link to={`/news/${news?.id}`}>
                     <Typography sx={{marginTop:"12px",height:"50px",fontWeight:"700",fontSize:"15px"}}>{news?.title?.slice(0,60)}</Typography>
                 </Link>
             </Box>

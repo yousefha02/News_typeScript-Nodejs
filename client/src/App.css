@@ -25,3 +25,13 @@ a{
 .header-title.black::before{
   background-color:#000000;
 }
+
+.date_design::before{
+  content:"";
+  position: absolute;
+  top:0;
+  right:0;
+  width:4px;
+  height:100%;
+  background-color:#b80000;
+}

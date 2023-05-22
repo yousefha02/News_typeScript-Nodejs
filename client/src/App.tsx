@@ -26,6 +26,7 @@ import { RootState } from './redux/store';
 import { QueryClient, QueryClientProvider } from 'react-query'
 import AdminEditCategory from './pages/admin/EditCategory';
 import AdminSocialMedia from './pages/admin/AdminSocialMedia';
+import SingleNew from './pages/user/SingleNew';
 
 
 const themes = createTheme({
@@ -79,6 +80,7 @@ function App() {
           <Route path='videos' element={<Videos/>}/>
           <Route path='/:category/news' element={<NewsByCategory/>}/>
           <Route path='/videos/:videoId' element={<SingleVideo/>}/>
+          <Route path='news/:newId' element={<SingleNew/>}/>
         </Routes>
         <ToastContainer />
       </ThemeProvider>

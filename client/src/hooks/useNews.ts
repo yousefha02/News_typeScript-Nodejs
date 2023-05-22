@@ -34,3 +34,12 @@ export const fetchAllNewsByCategory = async (page:number , id:string) =>{
 export const useAllNewsByCategory = (page:number,id:string) => {
     return useQuery<{news:New[],totalPages:number , category:singleCategory}>(['fetch-all-news-byCategory',id], ()=>fetchAllNewsByCategory(page,id));
 }
+
+export const fetchNew = async (id:string) =>{    
+    const res = await fetch(`${process.env.REACT_APP_API_KEY}/api/new/${id}`);
+    return res.json(); 
+}
+
+export const useSingleNew = (id:string) => {
+    return useQuery<{new:New}>(['fetch-new',id], ()=>fetchNew(id));
+}
