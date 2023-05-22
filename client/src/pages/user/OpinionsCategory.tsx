@@ -42,4 +42,4 @@ export default function OpinionsCategory() {
             </Container>
         </Layout>
     )
-}
+} 
