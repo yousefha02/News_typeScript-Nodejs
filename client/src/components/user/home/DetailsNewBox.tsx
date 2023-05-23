@@ -29,7 +29,7 @@ type props = {
 
 export default function DetailsNewBox({views,dataNew}:props) {
     return (
-        <Link to="/">
+        <Link to={`/news/${dataNew?.id}`}>
             <Grid container spacing={2}>
                 <Grid item xs={6}>
                     <Image src={`${process.env.REACT_APP_API_KEY}/images/${dataNew?.image}`}/>

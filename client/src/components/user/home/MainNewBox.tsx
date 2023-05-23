@@ -28,7 +28,7 @@ export default function MainNewBox({big,dataNew}:props) {
     })
 
     return (
-        <Link to="">
+        <Link to={`/news/${dataNew?.id}`}>
             <Wrapper 
             sx={{backgroundImage:`url('${process.env.REACT_APP_API_KEY}/images/${dataNew?.image}')`}}>
                 <Box sx={{padding:"8px"}}>
