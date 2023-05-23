@@ -9,10 +9,10 @@ type Props = {
 
 export default function OpinionAuthor({opinion}: Props) {
     return (
-        <Link to="/opinon/:id">
+        <Link to={`/opinion/${opinion.id}`}>
             <Box sx={{backgroundColor:"#cfdde233",padding:"16px"}}>
-                <Typography sx={{fontSize:"24px",fontWeight:"600",marginBottom:"16px"}}>{opinion.title}</Typography>
-                <Typography sx={{fontSize:"15px"}}>{opinion.description?.slice(0,250)}</Typography>
+                <Typography sx={{fontSize:"22px",fontWeight:"700",marginBottom:"16px"}}>{opinion.title}</Typography>
+                <Typography sx={{fontSize:"16px"}}>{opinion?.headLine?.slice(0,60)}</Typography>
             </Box>
         </Link>
     )

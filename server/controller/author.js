@@ -119,7 +119,7 @@ exports.getAuthorOpinions = async(req,res,next)=>
         const page = req.query.page || 1
         const offset = (page - 1) * LIMIT_SIZE
         const opinions = await Opinion.findAll({where:{authorId:authorId},limit:LIMIT_SIZE,offset,
-        order:[["createdAt","DESC"]],attributes:["title","description","id"]});
+        order:[["createdAt","DESC"]],attributes:["title","description","id","headLine"]});
         const count = await Opinion.count({where:{authorId:authorId}});
         const totalPages = Math.ceil(count / LIMIT_SIZE); 
         res.status(200).json({opinions , totalPages})

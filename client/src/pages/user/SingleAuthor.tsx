@@ -24,8 +24,8 @@ export default function SingleAuthor() {
                 <Box sx={{display:"flex",alignItems:"center",columnGap:"20px",marginBottom:"40px"}}>
                     <Image src={`${process.env.REACT_APP_API_KEY}/images/${author?.author.image}`}/> 
                     <Box>
-                    <Typography sx={{color:"#41798c",fontSize:"26px",fontWeight:"700"}}>{author?.author.name}</Typography>
-                    <Typography sx={{color:"#000000",fontSize:"20px",fontWeight:"500"}}>{author?.author.headline}</Typography>
+                    <Typography sx={{color:"#41798c",marginBottom:"10px",fontSize:"26px",fontWeight:"700"}}>{author?.author.name}</Typography>
+                    <Typography sx={{color:"#000000",fontSize:"18px",fontWeight:"500"}}>{author?.author.headline}</Typography>
                     </Box>
                 </Box>
                 <Grid container spacing={2}>

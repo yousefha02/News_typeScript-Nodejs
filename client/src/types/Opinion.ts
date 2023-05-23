@@ -16,4 +16,5 @@ export type Opinion ={
     updatedAt?: string,
     categoryId? : number,
     authorId? : number,
+    headLine?:string
 }

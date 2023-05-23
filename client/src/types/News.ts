@@ -11,5 +11,6 @@ export type New ={
     category ?: {
         id: number,
         title: string
-    }
+    },
+    headLine?:string
 }
