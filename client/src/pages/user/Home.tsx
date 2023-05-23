@@ -7,7 +7,7 @@ import Videos from '../../components/user/home/Videos'
 
 export default function Home() {
     return (
-        <Layout>
+        <Layout color={true}>
             <MainNews/>
             <NewsDetails/>
             <Opinions/>

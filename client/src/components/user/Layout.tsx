@@ -5,16 +5,17 @@ import Navbar from './Navbar/Navbar'
 import Footer from './Footer'
 
 type props = {
-    children:ReactNode
+    children:ReactNode,
+    color?:boolean
 }
 
-export default function Layout({children}:props) {
+export default function Layout({children,color}:props) {
     return (
         <Box>
             <LogoHeader/>
             <Navbar/>
             {children}
-            <Footer/>
+            <Footer color={color}/>
         </Box>
     )
 }

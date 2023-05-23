@@ -3,10 +3,14 @@ import React from 'react'
 import { SocialIcon } from 'react-social-icons';
 import { useAllSocialmedia } from '../../hooks/useSocialMedia';
 
-export default function Footer() {
+type props = {
+    color?:boolean
+}
+
+export default function Footer({color}:props) {
     const {data} = useAllSocialmedia();
     return (
-        <Box sx={{backgroundColor:"#f7f7f9",marginTop:"30px",paddingY:"30px"}}>
+        <Box sx={{backgroundColor:color?"white":"#f7f7f9",marginTop:"30px",paddingY:"30px"}}>
             <Container>
                 <Box sx={{marginBottom:"20px",display:"flex",justifyContent:"center",alignItems:"center",columnGap:"20px"}}>
                     {
