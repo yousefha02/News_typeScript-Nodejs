@@ -21,6 +21,10 @@ const Opinion = sequelize.define('opinion',{
         type:DataTypes.TEXT,
         required:true,
     },
+    headLine:{
+        type:DataTypes.STRING,
+        required:true
+    }
 })
 
 module.exports = Opinion

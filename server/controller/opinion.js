@@ -7,7 +7,7 @@ const path = require('path')
 exports.createOpinion = async(req,res,next)=>
 {
     try{
-        const {authorId,categoryId,description,title} = req.body
+        const {authorId,categoryId,description,title,headLine} = req.body
         if(!req.file)
         {
             const error = new Error('يجب إضافة صورة');
@@ -22,7 +22,7 @@ exports.createOpinion = async(req,res,next)=>
             error.statusCode = 404 ; 
             throw error ;
         }
-        const opinion = await Opinion.create({authorId,categoryId,description,title,image:req.file.filename})
+        const opinion = await Opinion.create({authorId,categoryId,description,title,image:req.file.filename,headLine})
         res.status(201).json({opinion,message:"تم إضافة الرأي"})
     }
     catch(err){

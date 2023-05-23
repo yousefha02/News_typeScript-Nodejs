@@ -64,7 +64,7 @@ app.use((error,req,res,next)=>
 })
 
 const sequlize = require('./utils/database')
-sequlize.sync()
+sequlize.sync({alter:true})
 .then(result=>
     {
         console.log('connection')
