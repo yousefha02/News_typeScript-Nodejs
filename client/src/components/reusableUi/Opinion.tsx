@@ -12,7 +12,7 @@ export default function OpinionBox({opinion}:props) {
         <Box sx={{backgroundColor:"#cfdde233",padding:"16px"}}>
             <Link to={`/opinion/${opinion?.id}`}>
                 <Typography sx={{fontSize:"18px",marginBottom:"24px",fontWeight:"700"}}
-                    >{opinion?.title} 
+                    >{opinion?.title?.slice(0,20)} 
                 </Typography>  
             </Link> 
             <Link to={`/authors/${opinion?.author?.id}`}>

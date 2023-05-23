@@ -25,7 +25,8 @@ const Image = styled("img")({
 interface IFormInput {
     title: string;
     author : string,
-    category:string
+    category:string,
+    headLine:string
   }
 
   const baseStyle = {
@@ -63,15 +64,17 @@ interface IFormInput {
     authortId?: string,
     isUpdate?: boolean,
     categoryId?:string,
-    opinionId?:number
+    opinionId?:number,
+    headLine?:string
   }
 
-function AddOpinion({title , description , authortId , isUpdate , categoryId , opinionId}:AddNewProps) {
+function AddOpinion({title , description , authortId , isUpdate , categoryId , opinionId,headLine}:AddNewProps) {
     const { control, handleSubmit  , formState: { errors },register} = useForm({
         defaultValues: {
             title: title || "",
             author: authortId || "",
-            category : categoryId || ""
+            category : categoryId || "",
+            headLine:headLine||""
         }
       });
 
@@ -86,15 +89,15 @@ function AddOpinion({title , description , authortId , isUpdate , categoryId , o
     
       const onSubmit: SubmitHandler<IFormInput> = async (data) => {        
         if(isUpdate){
-          handelUpdate(data.title , data.category , data.author);
+          handelUpdate(data.title , data.category , data.author,data.headLine);
         }
         else{
-          handelCreate(data.title , data.category , data.author);
+          handelCreate(data.title , data.category , data.author,data.headLine);
         }
       };
 
 
-      const handelCreate = async(title:string ,category:string , author:string) => {
+      const handelCreate = async(title:string ,category:string , author:string,headLine:string) => {
         if(!editorText){
           toast("الرجاء ادخال وصف",{position:"bottom-left", type:"error" , autoClose:1500})
           return;
@@ -108,6 +111,7 @@ function AddOpinion({title , description , authortId , isUpdate , categoryId , o
           const formData = new FormData();
           formData.append('title' , title);
           formData.append('description' , editorText);
+          formData.append('headLine' , headLine);
           formData.append('categoryId' , category);
           formData.append('authorId' , author);
           formData.append('image' , file);
@@ -134,7 +138,7 @@ function AddOpinion({title , description , authortId , isUpdate , categoryId , o
       }
       }
 
-      const handelUpdate = async(title:string ,category:string , author:string) => {
+      const handelUpdate = async(title:string ,category:string , author:string,headLine:string) => {
         if(!editorText){
           toast("إدخال وصف لخبر",{position:"bottom-left", type:"error" , autoClose:1500})
           return;
@@ -146,6 +150,7 @@ function AddOpinion({title , description , authortId , isUpdate , categoryId , o
           formData.append('description' , editorText);
           formData.append('categoryId' , category);
           formData.append('authorId' , author);
+          formData.append('headLine' , headLine);
           if(file){
             formData.append('image' , file);
           }
@@ -209,6 +214,16 @@ function AddOpinion({title , description , authortId , isUpdate , categoryId , o
           }
           />
           {errors.title && <Typography variant='h6' color="error" sx={{fontSize:"12px", marginTop:"12px"}}>هذا الحقل مطلوب</Typography>}
+        </Box>
+        <Box sx={{marginBottom:"20px"}}>
+          <Controller
+          control={control}
+          {...register("headLine", { required: true })} 
+          render={({ field }) => <TextField {...field} id="outlined-basic" label="وصف الرأي" color='secondary' 
+          variant="outlined" fullWidth sx={{maxWidth:"600px"}} autoComplete='off'/>
+          }
+          />
+          {errors.headLine && <Typography variant='h6' color="error" sx={{fontSize:"12px", marginTop:"12px"}}>هذا الحقل مطلوب</Typography>}
         </Box>
         <Box sx={{marginBottom:"20px"}}>
             <Controller

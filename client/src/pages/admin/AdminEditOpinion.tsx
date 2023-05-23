@@ -17,7 +17,7 @@ export default function AdminEditOpinion() {
             :
             <>
                 <HeaderTitle title={"تعديل الرأي"} color={true}/>
-                <AddOpinion title={data?.opinion.title} description={data?.opinion.description} 
+                <AddOpinion title={data?.opinion.title} description={data?.opinion.description} headLine={data?.opinion.headLine}
                 authortId={`${data?.opinion.author?.id}`} categoryId={`${data?.opinion.category?.id}`} isUpdate={true} opinionId={data?.opinion.id}/>
             </>
         }
