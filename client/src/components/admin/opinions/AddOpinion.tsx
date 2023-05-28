@@ -78,11 +78,11 @@ function AddOpinion({title , description , authortId , isUpdate , categoryId , o
         }
       });
 
-      console.log({authortId ,categoryId});
       
 
       const [editorText , setEditorText]=useState("");
-      const {data:authors} = useAllAuthors(0);
+      const {data:authors , isLoading:load2} = useAllAuthors(0);
+      console.log(authors);
       const {data:categories} = useCategories();
       const {token} = useSelector( (st : RootState) => st.admin);
       const [isLoad , setIsLoad] = useState<boolean>(false);
@@ -246,7 +246,7 @@ function AddOpinion({title , description , authortId , isUpdate , categoryId , o
               }}
               >
                 {
-                  authors?.authors.map(au=>{
+                  !load2 && authors?.authors?.map(au=>{
                     return <MenuItem key={au.id+"kmnjde"} value={au.id}>{au.name}</MenuItem>
                   })
                 }
@@ -277,7 +277,7 @@ function AddOpinion({title , description , authortId , isUpdate , categoryId , o
               }}
               >
                 {
-                  categories?.categories.map(ca=>{
+                  categories && categories?.categories.map(ca=>{
                     return <MenuItem key={ca.id+"kmnjedde"} value={ca.id}>{ca.title}</MenuItem>
                   })
                 }

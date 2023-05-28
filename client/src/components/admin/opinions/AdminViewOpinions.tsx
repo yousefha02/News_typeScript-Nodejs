@@ -64,7 +64,7 @@ function AdminViewOpinions() {
     <>
     <Grid container spacing={2}>
         {
-            data?.opinions.map(op=>{
+            data?.opinions?.map(op=>{
                 return <Grid item sm={6} md={4} lg={3} key={op.id+"knjhb"}>
                     <AdminOpinionBox opinion={op} handleDelete={handleDelete}/>
                 </Grid>

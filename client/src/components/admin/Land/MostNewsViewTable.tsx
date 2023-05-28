@@ -27,7 +27,7 @@ const rows = [
 ];
 
 export default function MostNewsTable() {
-  const {data} = useViewNews();
+  const {data  , isLoading} = useViewNews();
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -40,7 +40,7 @@ export default function MostNewsTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data?.news.map((row,index) => (
+          {!isLoading && data?.news?.map((row,index) => (
             <TableRow
               key={row.id+"nkbh"}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}

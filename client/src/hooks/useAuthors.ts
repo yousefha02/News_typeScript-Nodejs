@@ -9,7 +9,7 @@ export const fetchAllAuthors = async (page:number) =>{
 }
 
 export const useAllAuthors = (page:number) => {
-    return useQuery<{authors:Author[],totalPages:number}>('fetch-all-authors', ()=>fetchAllAuthors(page));
+    return useQuery<{authors:Author[],totalPages:number}>('fetch-all-mk-authors', ()=>fetchAllAuthors(page));
 }
 
 

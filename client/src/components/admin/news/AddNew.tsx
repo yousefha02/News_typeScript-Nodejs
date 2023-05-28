@@ -216,7 +216,7 @@ function AddNew({title , description , categoryId , isUpdate,newId}:AddNewProps)
                 defaultValue='1'
               >
                 {
-                  data?.categories.map(ca=>{
+                  data && data?.categories.map(ca=>{
                     return <MenuItem key={ca.id+"ked"} value={`${ca.id}`}>{ca.title}</MenuItem>
                   })
                 }
